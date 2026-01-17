@@ -1,0 +1,69 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: Salarié
+#------------------------------------------------------------
+
+CREATE TABLE Salarie(
+        numsal   int (11) Auto_increment  NOT NULL ,
+        promsal  Varchar (25) NOT NULL ,
+        genre    Varchar (25) NOT NULL ,
+        DateAmb  Date NOT NULL ,
+        DateNais Varchar (25) NOT NULL ,
+        nomsal   Varchar (25) NOT NULL ,
+        numPost  Int NOT NULL ,
+        PRIMARY KEY (numsal )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Poste
+#------------------------------------------------------------
+
+CREATE TABLE Poste(
+        numPost     int (11) Auto_increment  NOT NULL ,
+        designPoste Varchar (25) NOT NULL ,
+        PRIMARY KEY (numPost )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Competences
+#------------------------------------------------------------
+
+CREATE TABLE Competences(
+        idcomp  int (11) Auto_increment  NOT NULL ,
+        intcomp Varchar (25) NOT NULL ,
+        codeniv Int NOT NULL ,
+        PRIMARY KEY (idcomp )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: nivComp
+#------------------------------------------------------------
+
+CREATE TABLE nivComp(
+        codeniv   int (11) Auto_increment  NOT NULL ,
+        designNiv Varchar (25) NOT NULL ,
+        PRIMARY KEY (codeniv )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Posseder
+#------------------------------------------------------------
+
+CREATE TABLE Posseder(
+        numsal Int NOT NULL ,
+        idcomp Int NOT NULL ,
+        PRIMARY KEY (numsal ,idcomp )
+)ENGINE=InnoDB;
+
+ALTER TABLE Salarie ADD CONSTRAINT FK_Salarie_numPost FOREIGN KEY (numPost) REFERENCES Poste(numPost);
+ALTER TABLE Competences ADD CONSTRAINT FK_Competences_codeniv FOREIGN KEY (codeniv) REFERENCES nivComp(codeniv);
+ALTER TABLE Posseder ADD CONSTRAINT FK_Posseder_numsal FOREIGN KEY (numsal) REFERENCES Salarie(numsal);
+ALTER TABLE Posseder ADD CONSTRAINT FK_Posseder_idcomp FOREIGN KEY (idcomp) REFERENCES Competences(idcomp);
